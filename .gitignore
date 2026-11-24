@@ -8,6 +8,10 @@
 .env.*
 !.env.example
 
+# Local learning notes
+/knowldege/
+/docs/
+
 # User-specific files
 *.rsuser
 *.suo
