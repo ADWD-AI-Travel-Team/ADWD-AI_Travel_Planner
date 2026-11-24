@@ -12,4 +12,15 @@
 
 **Rejected:** Did not keep the generated permission policy exactly as written. I reviewed and adjusted the restrictions to match the team's intended permission boundaries rather than accepting the AI output without review.
 
+## 2026-11-24 — GitHub Actions CI base
+
+**Tool:** AI assistant.
+
+**Asked for:** Add a baseline GitHub Actions CI workflow for the project.
+
+**Kept:** `.github/workflows/ci.yml` with separate .NET 10 and frontend jobs. The workflow runs on pushes, pull requests, and manual dispatch; it restores, builds, and tests the .NET solution, then installs frontend dependencies and runs lint and production build.
+
+**Validation:** The .NET Release build completed with no warnings or errors, and the test command succeeded. Frontend lint and production build also succeeded. There are currently no test projects in the solution.
+
+**Accepted:** The user explicitly accepted the CI workflow response and asked to record it in this log.
 
