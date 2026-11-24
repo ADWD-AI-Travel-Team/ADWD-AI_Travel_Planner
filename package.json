@@ -1,0 +1,10 @@
+{
+  "name": "ai-travel-planner-checks",
+  "private": true,
+  "scripts": {
+    "lint": "dotnet format analyzers AITravelPlanner.sln --verify-no-changes --severity info",
+    "format": "dotnet format whitespace AITravelPlanner.sln --verify-no-changes",
+    "typecheck": "dotnet build AITravelPlanner.sln --configuration Release -warnaserror",
+    "test": "dotnet test AITravelPlanner.sln --configuration Release -- RunConfiguration.TreatNoTestsAsError=true"
+  }
+}
