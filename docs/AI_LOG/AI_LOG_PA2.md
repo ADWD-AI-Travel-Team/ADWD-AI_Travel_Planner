@@ -84,3 +84,27 @@
 - **Evidence:** Existing documentation commit `70579bf`; remote branch `feature/add-ia3-contract-reference` at https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/tree/feature/add-ia3-contract-reference. PR creation is handled after this log entry; no PR number is invented here.
 - **Led to rules-file line:** none.
 
+## 2026-11-25 — Prepare GET /places implementation and HTTP contract tests
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Implementation planning and baseline verification.
+- **Task given:** Implement the approved Places contract with layered code and real HTTP contract tests; first inspect main, create a new branch, map requirements and obtain permission for new dependencies. Do not commit or push.
+- **What the assistant produced:** Created feature/places-contract-implementation from origin/main at 47f9e2e after fetching and comparison. Added docs/contract/get-places-implementation-plan.md with existing/missing components, file responsibilities, GP coverage mapping, unresolved framework observations and a proposed test-host dependency. Implementation and HTTP tests are pending dependency approval; no API code, test assertions or approved contract was changed at this stage.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** Executed the existing check-tests.sh against the new main baseline: four architecture cases ran, three passed and Infrastructure failed because commit 1de27ce removed a direct Domain reference still required by the test. This is an existing architecture disagreement, not an endpoint regression or sandbox failure. The plan proposes restoring the implementation reference rather than weakening the architecture test.
+- **Evidence:** Remote main 47f9e2e; pre-existing reference change 1de27ce; local plan docs/contract/get-places-implementation-plan.md; actual baseline test result from this session. No commit, push or CI verification was performed for this task.
+- **Led to rules-file line:** none.
+
+## 2026-11-25 — Implement GET /places and verify HTTP contract tests
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Layered endpoint implementation, HTTP tests and verification.
+- **Task given:** After explicit approval for Microsoft.AspNetCore.Mvc.Testing 10.0.15 and restoration of Infrastructure's Domain reference, repair baseline, add the test project, observe framework parsing, implement the approved contract, run quality checks and a temporary implementation-only violation. Do not commit, push or change branch protection.
+- **What the assistant produced:** Domain Place eligibility/public-record invariants; Application catalog abstraction, query/response DTOs and list use case; Infrastructure empty/default and explicitly opted-in synthetic development adapters; anonymous WebApi route with explicit parsed-query validation, no-store and safe 400/500 Problem Details. Added the HTTP test project to the solution, retaining existing CI/scripts. Added implementation/file-responsibility guide, GP coverage mapping, parser observations and instructions for a later human PR red/blocked/fixed/green demonstration. The approved contract and existing architecture tests are unchanged.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** Restoring the approved direct reference made all four old tests pass. Package 10.0.15 restored, built and actually hosted requests on SDK 10.0.401/runtime 10.0.12. Thirteen parser cases observed merged mixed-case keys retaining last spelling and all values; two initial first-spelling guesses in characterization data were corrected to the observed behavior, not to weaken endpoint requirements. The gate caught analyzer issues and Windows encoding corruption in Unicode fixture literals; typed/serializable theory data, reusable arrays and explicit Unicode escapes resolved them without suppressions or weakening assertions. A temporary ascending-to-descending sort mutation made the real-app HTTP numeric-sort case fail (expected [1,2,10], actual [10,2,1], test process exit 1); finally restored original source bytes, leaving contract/tests unchanged during that experiment. Final lint, format, typecheck and test scripts all passed with Node 24.22.3; build had zero warnings/errors. Final tests: 4 architecture + 133 new-project cases = 137 passed, zero failed/skipped. The new project contains 116 HTTP contract cases, 4 fixture-configuration HTTP cases and 13 parser characterization cases. No real model, production service or secret was used.
+- **Evidence:** Local src/Domain/Places, src/Application/Places, src/Infrastructure/Places, src/WebApi/Places, tests/AITravelPlanner.ContractTests and solution changes; actual command output from this session; docs/implementation/get-places.md and docs/implementation/get-places-parser-observations.md. No commit/PR/CI link exists for this task because no commit or push was performed. Local mutation evidence does not claim a remote blocked merge.
+- **Led to rules-file line:** none.
+

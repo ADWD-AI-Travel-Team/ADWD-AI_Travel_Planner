@@ -1,8 +1,21 @@
+using AITravelPlanner.Application.Places;
+using AITravelPlanner.Infrastructure.Places;
+using AITravelPlanner.WebApi.Places;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddTransient<ListPlaces>();
+if (builder.Environment.IsDevelopment() && builder.Configuration.GetValue<bool>("Catalog:UsePa2Fixture"))
+{
+    builder.Services.AddSingleton<IPlaceCatalog, Pa2FixturePlaceCatalog>();
+}
+else
+{
+    builder.Services.AddSingleton<IPlaceCatalog, EmptyPlaceCatalog>();
+}
 
 var app = builder.Build();
 
@@ -13,6 +26,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapPlaces();
 
 var summaries = new[]
 {
