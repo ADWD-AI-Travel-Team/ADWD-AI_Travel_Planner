@@ -18,7 +18,7 @@ public sealed class ListPlaces(IPlaceCatalog catalog)
         var filtered = candidates.Where(place =>
             (query.Category is null || place.Category == query.Category)
             && (query.District is null || place.District == query.District)).ToArray();
-        var items = filtered.OrderBy(place => place.Id)
+        var items = filtered.OrderByDescending(place => place.Id)
             .Skip((query.Page - 1) * query.PageSize).Take(query.PageSize)
             .Select(place => new PlaceDto(place.Id, place.Name!, place.Category!, place.District!)).ToArray();
         var totalPages = (int)(((long)filtered.Length + query.PageSize - 1) / query.PageSize);
