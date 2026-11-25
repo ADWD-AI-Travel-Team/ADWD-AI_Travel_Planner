@@ -9,6 +9,9 @@
 # Local development configuration
 **/appsettings.Development.json
 
+# Local learning notes
+/knowledge/
+
 # User-specific files
 *.rsuser
 *.suo
