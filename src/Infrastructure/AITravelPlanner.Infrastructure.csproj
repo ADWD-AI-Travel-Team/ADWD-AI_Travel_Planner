@@ -1,8 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Application\AITravelPlanner.Application.csproj" />
-    <ProjectReference Include="..\Domain\AITravelPlanner.Domain.csproj" />
+
   </ItemGroup>
 
   <PropertyGroup>
