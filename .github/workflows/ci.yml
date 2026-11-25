@@ -8,8 +8,6 @@ on:
       - 'feature/**'
 
   pull_request:
-    branches:
-      - main
 
   workflow_dispatch:
 
@@ -17,8 +15,8 @@ permissions:
   contents: read
 
 jobs:
-  dotnet:
-    name: .NET
+  lint:
+    name: lint
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
@@ -27,39 +25,45 @@ jobs:
       - name: Set up .NET
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: 10.0.x
-
-      - name: Restore
-        run: dotnet restore AITravelPlanner.sln
-
-      - name: Build
-        run: dotnet build AITravelPlanner.sln --no-restore --configuration Release
-
-      - name: Test
-        run: dotnet test AITravelPlanner.sln --no-build --configuration Release
-
-  frontend:
-    name: Frontend
-    runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: src/WebFrontend
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: src/WebFrontend/package-lock.json
+      - run: npm ci
+        working-directory: src/WebFrontend
+      - run: bash scripts/check-lint.sh
 
-      - name: Install dependencies
-        run: npm ci
+  format:
+    name: format
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: bash scripts/check-format.sh
 
-      - name: Lint
-        run: npm run lint
+  typecheck:
+    name: typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - run: npm ci
+        working-directory: src/WebFrontend
+      - run: bash scripts/check-types.sh
 
-      - name: Build
-        run: npm run build
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - run: bash scripts/check-tests.sh
