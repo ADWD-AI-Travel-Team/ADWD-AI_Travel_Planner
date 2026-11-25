@@ -20,8 +20,10 @@ Run commands from the appropriate project directory.
 - Install frontend dependencies: `npm ci`
 - Start frontend: `npm run dev`
 - Frontend lint: `npm run lint`
-- Frontend format check: `npm run format:check`
-- Frontend type check: `npm run typecheck`
+- Repository lint: `bash scripts/check-lint.sh`
+- Repository format check (C#): `bash scripts/check-format.sh`
+- Repository type check (C# and TypeScript): `bash scripts/check-types.sh`
+- Repository tests: `bash scripts/check-tests.sh`
 - Backend restore: `dotnet restore`
 - Backend build: `dotnet build --no-restore`
 - Backend tests: `dotnet test --no-build`
