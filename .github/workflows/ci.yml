@@ -8,6 +8,8 @@ on:
       - 'feature/**'
 
   pull_request:
+    branches:
+      - main
 
   workflow_dispatch:
 
@@ -26,11 +28,14 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
+
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+
       - run: npm ci
         working-directory: src/WebFrontend
+
       - run: bash scripts/check-lint.sh
 
   format:
@@ -38,9 +43,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
+
       - run: bash scripts/check-format.sh
 
   typecheck:
@@ -48,14 +55,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
+
       - uses: actions/setup-node@v4
         with:
           node-version: 24
+
       - run: npm ci
         working-directory: src/WebFrontend
+
       - run: bash scripts/check-types.sh
 
   test:
@@ -63,7 +74,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: actions/setup-dotnet@v4
         with:
           global-json-file: global.json
+
       - run: bash scripts/check-tests.sh
