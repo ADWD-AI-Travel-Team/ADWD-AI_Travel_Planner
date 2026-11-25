@@ -5,7 +5,7 @@ Prerequisites: Git, .NET SDK **10.0.401** (pinned in `global.json`), Node.js 24
 with npm, and Bash (Git Bash on Windows). From a new directory:
 
 ```sh
-git clone https://github.com/TrongNhan2401/ADWD-AI_Travel_Planner.git
+git clone https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner.git
 cd ADWD-AI_Travel_Planner
 # Before this work is merged, check out the PR branch:
 git switch feature/pa2-check-parity
