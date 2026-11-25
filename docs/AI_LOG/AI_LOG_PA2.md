@@ -72,3 +72,15 @@
 - **Evidence:** Implementation commit `c27a64c`; successful CI run https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/actions/runs/45547596703 on branch feature/pa2-check-parity. Four documented commands: `bash scripts/check-lint.sh`, `bash scripts/check-format.sh`, `bash scripts/check-types.sh`, `bash scripts/check-tests.sh`.
 - **Led to rules-file line:** `Repository type check (C# and TypeScript): bash scripts/check-types.sh` and matching repository check commands in AGENTS.md replace unavailable frontend-only script names; this corrects documentation drift observed during inspection.
 
+## 2026-11-25 — Publish documentation through a protected-branch PR
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Git workflow and documentation publishing.
+- **Task given:** Explain the GH013 rejection of a direct main push and publish the existing changes correctly.
+- **What the assistant produced:** Inspected the user's commit 70579bf, which adds the IA#3 contract reference and the local knowledge ignore rule. Fetched current remote state, created feature/add-ia3-contract-reference at that commit, updated origin to the repository's new organization URL, and pushed the feature branch successfully. The GitHub rejection explicitly requires a pull request; that rule is separate from CI configuration. The identity of the person who enabled the rule was not established. No protection setting, test or contract rule was changed, and no history was rewritten.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** The user's git push output reported GH013 with 'Changes must be made through a pull request.' Git inspection confirmed that local main was one documentation commit ahead of origin/main and the working tree was clean before this task. Pushing the new branch succeeded.
+- **Evidence:** Existing documentation commit `70579bf`; remote branch `feature/add-ia3-contract-reference` at https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/tree/feature/add-ia3-contract-reference. PR creation is handled after this log entry; no PR number is invented here.
+- **Led to rules-file line:** none.
+
