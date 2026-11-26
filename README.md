@@ -7,15 +7,16 @@ with npm, and Bash (Git Bash on Windows). From a new directory:
 ```sh
 git clone https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner.git
 cd ADWD-AI_Travel_Planner
-# Before this work is merged, check out the PR branch:
-git switch feature/pa2-check-parity
+# If reviewing an unmerged PR, check out its published branch here.
 cd src/WebFrontend
 npm ci
 cd ../..
 ```
 
-The branch must be published before others can clone its changes. After merge,
-use main and omit the switch command. On Windows PowerShell, use `npm.cmd ci`
+An unmerged branch must be published before others can clone its changes.
+Current Places implementation work is local on
+`feature/places-contract-implementation` until the author commits and pushes it.
+After merge, use main. On Windows PowerShell, use `npm.cmd ci`
 if script execution policy blocks `npm.ps1`. Run checks in Git Bash.
 The .NET commands restore NuGet packages automatically and
 require access to NuGet on the first run. No database or model key is needed.
@@ -48,6 +49,23 @@ and dependencies needed for their check; `npm ci` is setup, not another check.
 The scripts are the single definition of the check operations. No job hides
 failures. Branch protection is configured separately by the repository owner;
 the workflow alone does not make checks required.
+
+## GET /places (PA#2)
+
+The public endpoint follows [the approved contract](docs/contract/get-places.md).
+See [the implementation guide](docs/implementation/get-places.md) for layer/file
+responsibilities, manual requests, test coverage, and the human PR red-to-green
+demonstration. [Parser observations](docs/implementation/get-places-parser-observations.md)
+record the .NET 10 test-host behavior without changing the contract.
+
+By default the catalog is empty; no official dataset is bundled. Synthetic
+PA#2 records require both Development environment and explicit
+`Catalog:UsePa2Fixture=true` configuration (`Catalog__UsePa2Fixture` as an
+environment variable). They are never enabled in Production. Contract tests
+inject their own deterministic fake catalog and exercise the real HTTP app.
+
+The existing `bash scripts/check-tests.sh` includes the new contract test
+project through the solution; no separate CI invocation is needed.
 
 ## Environment Configuration
 
