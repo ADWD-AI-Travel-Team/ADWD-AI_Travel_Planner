@@ -108,3 +108,111 @@
 - **Evidence:** Local src/Domain/Places, src/Application/Places, src/Infrastructure/Places, src/WebApi/Places, tests/AITravelPlanner.ContractTests and solution changes; actual command output from this session; docs/implementation/get-places.md and docs/implementation/get-places-parser-observations.md. No commit/PR/CI link exists for this task because no commit or push was performed. Local mutation evidence does not claim a remote blocked merge.
 - **Led to rules-file line:** none.
 
+
+## 2026-11-25 — Diagnose required checks waiting despite successful CI
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Read-only GitHub CI/ruleset diagnosis and logging.
+- **Task given:** Investigate four required checks stuck at Expected/Waiting while actual workflow jobs succeed; do not change branch protection.
+- **What the assistant produced:** Compared local workflow and GitHub API check-run names with effective main rules. Ruleset 28039538 requires contexts CI / lint, CI / format, CI / typecheck and CI / test, while GitHub Actions reports lint, format, typecheck and test. This name mismatch explains the expected checks never being satisfied. Recommended an owner update only the required context selections to the existing job names while keeping all four checks required. No workflow, test, implementation, contract or repository setting was changed.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** GET-only API inspection showed PR #9 at head b8275ff3fce145fec6d437f72b4cb64bb38ecafd with all eight push/pull_request check runs successful but mergeable_state blocked. Effective rules on main listed four differently named required contexts. This is not evidence of an intentional contract-test regression blocking merge. PR #8 separately has a genuinely failing test check and is outside the current contract-test demonstration.
+- **Evidence:** PR https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 ; successful CI run https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/actions/runs/45637930466 ; repository ruleset ID 28039538 from the effective main rules API. No fix to settings has been performed or verified yet. No commit or push performed.
+- **Led to rules-file line:** none.
+
+## 2026-11-25 — Trace workflow naming history and verify corrected rule names
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** CI configuration diagnosis.
+- **Task given:** Determine whether required-check name mismatches came from a teammate's configuration and a later workflow rename.
+- **What the assistant produced:** Compared both tracked ci.yml revisions and read current ruleset 28039538. Initial workflow e3cd19b used jobs .NET and Frontend. Commit c27a64c replaced them with lint, format, typecheck and test during the assistant's earlier implementation task. Neither tracked version emitted job names CI / lint, CI / format, CI / typecheck or CI / test. The prefix mismatch therefore is not demonstrated to be a rename from those prefixed job names; confusion with UI display labels remains an inference. The API does not identify who selected the earlier required contexts.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** Read git history and diffs for ci.yml, then GET ruleset metadata and current required contexts. The active Protect Main ruleset now requires typecheck, format, lint and test with GitHub Actions integration, matching the actual reported job names. Its updated_at was 2026-11-25T21:56:37.498+07:00. No settings were changed by the assistant. PR mergeability after this update was not checked in this task.
+- **Evidence:** Commits e3cd19b and c27a64c; GitHub API ruleset 28039538 under ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner. No commit or push performed for this diagnosis.
+- **Led to rules-file line:** none.
+
+## 2026-11-25 — Stage intentional ordering violation for the human PR demonstration
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Contract-gate evidence, local intentional failure.
+- **Task given:** After explicit approval, change ascending place ordering to descending, run the targeted HTTP test and leave the violation in place for the human to commit/push. Do not modify contract/tests or perform Git publishing operations.
+- **What the assistant produced:** Changed only the sort call in src/Application/Places/ListPlaces.cs from OrderBy to OrderByDescending. Left the intentional violation present. Contract and test files are unchanged. The human previously confirmed saving the green baseline screenshot and supplied PR #9, baseline b8275ff3fce145fec6d437f72b4cb64bb38ecafd and green CI run 45637930466.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** Ran dotnet test with the FullyQualifiedName filter for Numeric_sort_and_changed_catalog_have_coherent_per_response_totals. One real-app HTTP test ran and failed, zero passed/skipped, process exit code 1. Its assertion expected [1,2,10] and received [10,2,1]. This is an intentional ordering-contract violation, not a build or environment failure. Remote red CI and blocked merge have not yet been observed for this mutation.
+- **Evidence:** Local implementation diff and test output from this session. Existing PR https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 ; green baseline run https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/actions/runs/45637930466 . No mutation commit hash or red-run link exists yet; the assistant has not committed or pushed.
+- **Led to rules-file line:** none.
+
+## 2026-11-25 — Restore correct ordering after preserving red-check evidence
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Contract-gate demonstration, repair and local verification.
+- **Task given:** Continue the staged human-controlled demonstration after the human confirmed saving the HTTP failure screenshot and the required-check blocked-merge screenshot. Restore only the intentional implementation violation and run all local checks; do not commit or push.
+- **What the assistant produced:** Replaced OrderByDescending with OrderBy in src/Application/Places/ListPlaces.cs. The implementation file, approved contract and all test files match green baseline b8275ff. No assertion, architecture rule, workflow or branch protection was changed. The human reports saving contract-test-red.png and required-check-blocked.png; those files have not been inspected or added to the repository by the assistant.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** GitHub API verified job 139319509892 failed on intentional violation commit 11d5ba76d260a4a067610a5ff2a749982d0f6be1; run 45646699706 is a push run. PR #9 was open with mergeable_state blocked, and the active rule required test plus lint/format/typecheck from GitHub Actions. The human separately confirmed the blocked-merge UI screenshot. After local restoration, all four quality-check scripts passed with Node 24.22.3 and SDK 10.0.401: zero build warnings/errors, 4 architecture tests plus 133 new-project cases passed, none failed/skipped. A remote fixing commit and green fix run do not exist yet; the human will create and push the fix.
+- **Evidence:** PR https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 ; baseline b8275ff3fce145fec6d437f72b4cb64bb38ecafd ; violation 11d5ba76d260a4a067610a5ff2a749982d0f6be1 ; red job https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/actions/runs/45646699706/job/139319509892 ; local repair diff and successful check outputs. Screenshot filenames are human-reported local evidence, not repository links.
+- **Led to rules-file line:** none.
+
+## 2026-11-25 — Preserve final contract-gate evidence during GitHub PR update delay
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Submission evidence and read-only remote diagnosis.
+- **Task given:** Explain how to integrate the implementation and finish documentation while PR #9 remains at Processing updates after teammate docs merged into main. Do not commit, push, merge or change branch rules.
+- **What the assistant produced:** Added docs/evidence/pa2-contract-gate.md with the actual baseline, intentional failure, fix, CI links, human-reported screenshot names and clearly pending PR synchronization/merge/image-link evidence. Fetched main without merging; teammate PA2.md and SELF_ASSESSMENT_REPORT.md are already present there. PA2.md still has empty evidence sections. Existing teammate documents were not overwritten.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** The feature branch ref is 13773cf2800d37fc72a440d56054ae100b5841b4 and all four checks on push run 45649066961 succeeded, while the PR API still reports head 11d5ba7 and mergeable_state unknown. GitHub Status reports degraded Pull Requests, Actions and Webhooks, consistent with an update delay but not proof of the individual PR root cause. Remote main is 64942d2 after teammate documentation merges. No conflict resolution or successful PR merge is claimed.
+- **Evidence:** PR https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 ; green fix run https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/actions/runs/45649066961 ; https://www.githubstatus.com/ ; docs/evidence/pa2-contract-gate.md. Screenshot files still need human-provided repository paths. No commit or push performed.
+- **Led to rules-file line:** none.
+
+## 2026-11-26 — Recheck PR synchronization after GitHub service recovery
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Read-only PR/CI diagnosis and recovery guidance.
+- **Task given:** Investigate why PR #9 still does not recognize the fixing commit after GitHub's incident was resolved; propose a history-preserving recovery.
+- **What the assistant produced:** Verified the branch ref is 13773cf while refs/pull/9/head and the PR API still point to 11d5ba7. The fixing commit's push run 45649066961 is successful; no fixing-commit pull_request run is listed. GitHub Status currently reports all systems operational. Recommended the human close and reopen the same PR as a reversible recovery attempt, preserving commits and evidence; no guarantee of resynchronization is claimed. If that fails, contact GitHub Support with the mismatched refs and existing evidence rather than force-pushing or bypassing checks.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** GET-only API requests, git ls-remote and GitHub Status summary. The inconsistency is server-side PR metadata/ref synchronization rather than a missing push; the exact underlying cause remains unknown.
+- **Evidence:** PR https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 ; successful fix run https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/actions/runs/45649066961 ; https://www.githubstatus.com/api/v2/summary.json . No commit, push, PR state change or protection change performed.
+- **Led to rules-file line:** none.
+
+## 2026-11-26 — Verify synchronized fixing PR and green required checks
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Contract-gate evidence verification.
+- **Task given:** Verify the green pull_request run supplied by the human before guiding the human merge.
+- **What the assistant produced:** Confirmed run 45733073631 is a successful pull_request run for fixing commit 13773cf2800d37fc72a440d56054ae100b5841b4. All four jobs lint, format, typecheck and test succeeded. PR #9 now reports the same fixing head, mergeable true and mergeable_state clean. The human reported reopening the same PR and saving contract-fix-green.png after synchronization recovered. The screenshot itself has not been inspected or committed by the assistant.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** GET-only inspection of the supplied run, its jobs and PR #9. PR is still open and merged false at verification time. No successful merge is claimed yet; the human will perform it without squashing or rebasing to preserve the demonstrated commits.
+- **Evidence:** https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/actions/runs/45733073631 ; https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 ; fixing commit 13773cf2800d37fc72a440d56054ae100b5841b4. No commit, push, merge or protection change performed by the assistant.
+- **Led to rules-file line:** none.
+
+## 2026-11-26 — Verify human merge of the contract-test demonstration PR
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Final contract-gate evidence documentation.
+- **Task given:** Continue evidence completion after the human reported merging PR #9. Do not commit, push or merge automatically.
+- **What the assistant produced:** Verified PR #9 merged=true, closed, fixing head 13773cf2800d37fc72a440d56054ae100b5841b4 and merge commit 90862b1fadb979cc76da4a8a7c45da9451adaee6. Updated the local evidence index with the actual merge link and time. Screenshot integration and publication of pending evidence/log changes remain human-controlled next steps.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** Read-only GitHub PR API reports merged_at 2026-11-26T01:15:55Z. Working tree still has pending AI-LOG modifications and the untracked evidence directory; no local changes were discarded. The human, not the assistant, performed the merge.
+- **Evidence:** https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 ; https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/commit/90862b1fadb979cc76da4a8a7c45da9451adaee6 ; docs/evidence/pa2-contract-gate.md. No commit or push performed by the assistant.
+- **Led to rules-file line:** none.
+
+## 2026-11-26 — Inspect and link the four contract-gate screenshots
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** Submission evidence documentation.
+- **Task given:** Check the four copied screenshots and link them into the contract-gate evidence document without committing or pushing.
+- **What the assistant produced:** Located the four images directly under docs/evidence rather than its images subfolder. Visually inspected each and added accurate relative image links/captions to docs/evidence/pa2-contract-gate.md. Consolidated historical PR synchronization notes and retained verified merge and run links. No images were moved or edited; teammate PA2.md on main was read but not overwritten.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** The red-test screenshot shows Consecutive_pages_do_not_overlap_and_retries_do_not_mutate_snapshot, expected [1,2] versus actual [6,5], with 23 failures/110 passes in the 133-case project. It does not show the separate numeric-sort case's [1,2,10] assertion, so its caption explicitly distinguishes the cases. The blocked screenshot shows commit 11d5ba7, failed Required test checks and a disabled merge button. Baseline and fix images show green checks on the same PR. Remote main was fetched to confirm merged implementation and teammate docs; no merge or working-tree overwrite was performed.
+- **Evidence:** docs/evidence/baseline-green.png, docs/evidence/contract-test-red.png, docs/evidence/required-check-blocked.png, docs/evidence/contract-fix-green.png and docs/evidence/pa2-contract-gate.md. These local files are not yet claimed as published. No commit or push performed.
+- **Led to rules-file line:** none.
