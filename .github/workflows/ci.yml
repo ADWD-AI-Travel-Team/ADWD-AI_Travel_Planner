@@ -6,6 +6,8 @@ on:
     branches:
       - main
       - 'feature/**'
+    tags:
+      - pa2
 
   pull_request:
     branches:

@@ -14,9 +14,8 @@ cd ../..
 ```
 
 An unmerged branch must be published before others can clone its changes.
-Current Places implementation work is local on
-`feature/places-contract-implementation` until the author commits and pushes it.
-After merge, use main. On Windows PowerShell, use `npm.cmd ci`
+The Places implementation is merged into main. When reviewing another unmerged
+change, select its published PR branch. On Windows PowerShell, use `npm.cmd ci`
 if script execution policy blocks `npm.ps1`. Run checks in Git Bash.
 The .NET commands restore NuGet packages automatically and
 require access to NuGet on the first run. No database or model key is needed.
@@ -43,12 +42,20 @@ TypeScript can update incremental build metadata under ignored `node_modules`.
 Formatting checks report differences without rewriting source files.
 
 GitHub Actions invokes exactly these four check commands in separate `lint`,
-`format`, `typecheck` and `test` jobs on pull requests targeting any branch,
-pushes to main and feature/**, and manual dispatch. Jobs install only the tools
+`format`, `typecheck` and `test` jobs on pull requests targeting main,
+pushes to main and feature/**, pushes of the exact submission tag `pa2`, and
+manual dispatch. The tag run checks the commit referenced by the tag using
+the same four scripts. Jobs install only the tools
 and dependencies needed for their check; `npm ci` is setup, not another check.
 The scripts are the single definition of the check operations. No job hides
 failures. Branch protection is configured separately by the repository owner;
 the workflow alone does not make checks required.
+
+Submission tagging is a human action after reviewing the final main revision.
+Do not create or push `pa2` before the submission is ready. After the tag is
+pushed, verify all four jobs succeed and record the actual tag-run link in
+the submission evidence. Adding this trigger alone is not evidence of a
+successful tag run. An existing published tag must not be moved or overwritten.
 
 ## GET /places (PA#2)
 

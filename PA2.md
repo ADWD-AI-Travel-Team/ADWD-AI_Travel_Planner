@@ -53,10 +53,11 @@ preserving the baseline, violating and fixing commits.
 ## 5. CI Run for Submission Tag
 
 Pending: no verified submission-tag run is supplied by this evidence task.
-The current workflow triggers pushes to main/feature branches and PRs targeting
-main, not tag pushes. A branch or PR run must not be labeled as a tag-triggered
-run. The team must resolve the tag CI requirement and add a real run link
-before claiming this evidence is complete. No tag was created or pushed here.
+The workflow now includes a push trigger for the exact tag `pa2`, reusing all
+four check jobs. The trigger must reach main before the human selects and
+pushes the final submission tag. A branch or PR run must not be labeled as a
+tag-triggered run. Add the actual successful tag-run link before claiming this
+evidence is complete. No tag was created or pushed here.
 
 
 
