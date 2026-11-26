@@ -228,3 +228,15 @@
 - **How we found the problem:** Read the current submission docs and workflow on the branch created from origin/main after evidence PR #13 merged at da87713. PA2.md had blank blocked/green/break sections and self-assessment still described PR #9 as currently blocked. The workflow has no tag-push trigger, so submission-tag CI remains explicitly pending rather than being inferred from a branch run. Local Markdown targets are checked for existence; no quality tests are claimed rerun for this documentation-only change.
 - **Evidence:** PA2.md, SELF_ASSESSMENT_REPORT.md, docs/evidence/pa2-contract-gate.md; PRs https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 and https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/13 ; actual red/green runs linked in PA2.md. No commit or push performed by the assistant.
 - **Led to rules-file line:** none.
+
+## 2026-11-26 — Enable the existing quality gate for the submission tag
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** CI trigger and submission documentation.
+- **Task given:** Continue submission preparation after PR #14 merged; prepare CI to run for the pa2 tag on the human-created feature/pa2-tag-ci branch. Do not commit, push, create tags or change branch protection.
+- **What the assistant produced:** Added the exact pa2 tag under the existing push trigger in .github/workflows/ci.yml. All four jobs, scripts, permissions and existing branch/PR triggers remain unchanged. README documents that a tag push runs those same checks at its referenced commit, and that tagging/run evidence is still a later human action.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** The main workflow had branch push and pull_request triggers but no tags filter. Compared the updated workflow with HEAD to ensure only the tag trigger was added. No tag run has been executed or claimed successful. PA2.md submission-tag evidence remains pending until a real run exists. Application code/tests are unchanged, so no local test rerun is claimed for this trigger-only change.
+- **Evidence:** Local diff in .github/workflows/ci.yml and README.md, based on main merge c07d707. No new commit, PR or tag-run link exists for this task yet.
+- **Led to rules-file line:** none.

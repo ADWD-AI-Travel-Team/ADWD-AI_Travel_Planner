@@ -18,8 +18,9 @@ Total I claim: **94 / 100**
 
 ## What we did not manage
 
-- Submission-tag CI evidence remains pending; the current workflow does not
-  trigger on tag pushes. No branch/PR run is presented as a tag-triggered run.
+- Submission-tag CI evidence remains pending. A trigger for the exact tag pa2
+  has been added, but no actual tag run is supplied yet. No branch/PR run is
+  presented as a tag-triggered run.
 - Several AI-log Changed/Rejected fields still need truthful human review.
 - The four-check gate verifies C# formatting and .NET tests; a frontend formatter
   and frontend test runner have not been added. Type checking and lint cover
