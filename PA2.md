@@ -1,4 +1,4 @@
-PA#2 — Evidence Index
+# PA#2 — Evidence Index
 Project: AI Travel Planner Course: CSC13114 — Class 23KTPM1 Team members:
 
 23127325 - Lê Gia Bảo
@@ -52,14 +52,27 @@ preserving the baseline, violating and fixing commits.
 
 ## 5. CI Run for Submission Tag
 
-Pending: no verified submission-tag run is supplied by this evidence task.
-The workflow now includes a push trigger for the exact tag `pa2`, reusing all
-four check jobs. The trigger must reach main before the human selects and
-pushes the final submission tag. A branch or PR run must not be labeled as a
-tag-triggered run. Add the actual successful tag-run link before claiming this
-evidence is complete. No tag was created or pushed here.
+Submission tag: **`pa2`**. The exact-tag push trigger was merged in
+[PR #15](https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/15).
+The same four scripts run against the tagged revision.
 
+**Status at this documentation revision: the final tag has not been published
+or its run verified.** This is the remaining external submission action, not
+an already successful check.
 
+[Find the pa2 tag's CI runs](https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/actions/workflows/ci.yml?query=branch%3Apa2).
+This is a stable lookup link prepared before tagging, not a fabricated run ID
+or a claim that a run already exists. After the human pushes the final tag,
+verify its run is for ref `pa2`, the tagged commit matches, and all four jobs
+pass. Save the actual run URL and screenshot with the hand-in evidence.
+
+A commit cannot contain the run ID generated later by pushing its own tag.
+Keep the final tag immutable: do not move/delete/recreate it just to insert a
+future run URL. Record the resolved URL in the submission notes or an English
+GitHub Release body attached to the same tag; neither requires moving the tag.
+A later documentation PR may also record it on main, clearly outside the tagged
+snapshot. See [the finalization procedure](docs/evidence/pa2-submission-finalization.md).
+No tag creation/push or successful tag run is claimed here.
 
 ## 6. Deliberate Contract Break
 
@@ -90,3 +103,16 @@ The correct implementation passed 137 tests locally: 4 architecture cases plus
 133 cases in the new project. The public catalog has no per-user ownership;
 the HTTP suite checks anonymous access, strict validation, eligibility, paging,
 success bodies/headers and both documented error types.
+
+## 7. Remaining human review
+
+- Confirm the self-assessment marks against evidence; the total 94/100 is the
+  team's claim, not an independently awarded mark.
+- The AI log's 2026-11-26 human review addendum records the user's contract
+  corrections and check-parity feedback. Other manual changes/rejections have
+  not been reported. Historical TODO(human) fields are preserved rather than
+  silently rewritten; no additional feedback is invented to fill them.
+- Confirm provider spending-cap evidence, secret-history review and rules-file
+  traceability before claiming full credit for those criteria. The current
+  endpoint and tests make no real model calls.
+- Finish section 5's actual tag-run verification and hand-in packaging.

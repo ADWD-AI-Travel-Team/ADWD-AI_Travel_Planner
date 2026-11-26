@@ -83,27 +83,30 @@ tracked configuration or commit a local `.env` file.
 The model API key must only be configured on the backend.
 It must never be exposed to the frontend or browser bundle.
 
+## PA#2 evidence and submission
+
+- [Submission evidence index](PA2.md)
+- [Contract-gate screenshots and commit/run links](docs/evidence/pa2-contract-gate.md)
+- [Team self-assessment](SELF_ASSESSMENT_REPORT.md)
+- [AI activity log](AI-LOG.md)
+- [Finalization procedure and remaining human decisions](docs/evidence/pa2-submission-finalization.md)
+
 ## LLM API Usage and Spending Limits
 
-AI Travel Planner uses an external LLM provider for
-AI-assisted travel planning.
+PA#2's implemented catalog endpoint does not call a model. Its HTTP tests use a
+controlled catalog, not a live model, production database or external API.
+The committed appsettings.json contains proposed provider/model defaults
+(OpenAI / gpt-4.1-mini); those strings do not prove a live integration, account,
+API key or provider budget exists.
 
-To prevent unexpected API expenses:
+- Runtime model execution in this PA#2 implementation: none.
+- Provider account, spending cap and alert configuration: not verified in this
+  repository review. Do not claim they are configured without real evidence.
+- Model-call cost incurred by these checks/tests: zero; no model calls are made.
+- Estimated cost of generating one travel plan: not measured; plan generation
+  is not implemented by this endpoint.
 
-- The API key is stored exclusively in the backend environment.
-- A monthly spending cap is configured in the provider dashboard.
-- Usage alerts are enabled.
-- The team monitors token consumption and API costs.
-- Unit tests use mocked model responses instead of real API calls.
-
-### Configured Spending Limit
-
-- Provider: [Actual provider]
-- Monthly budget/cap: [Actual configured amount]
-- Alert threshold: [Actual configured threshold]
-- Budget owner: [Responsible team member]
-
-The team must review API usage regularly and must not
-increase the spending limit without approval.
-
-
+Before a real model integration, the team must choose its provider/model,
+configure an approved spending cap and alerts, and document the actual owner
+and limits. Model credentials stay on the backend and out of committed files.
+Do not increase an approved spending limit without human approval.

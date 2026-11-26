@@ -91,15 +91,18 @@ is historical, not a claim of a currently pending synchronization problem.
 Read-only API verification confirmed PR #9 merged with fixing head 13773cf and
 merge commit 90862b1fadb979cc76da4a8a7c45da9451adaee6 at
 2026-11-26T01:15:55Z (08:15:55 in Vietnam). The human performed the merge.
-The screenshots and this evidence/log update still need publication through a
-separate human-controlled documentation PR. They were not part of the merged
-implementation PR.
+The screenshots and evidence index were subsequently published through human
+[PR #13](https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/13),
+merged as da87713. [PR #14](https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/14)
+then linked the evidence from PA2.md and updated the historical PR status in
+self-assessment. The images are included in main, not merely human-reported
+local files. They were not part of the original implementation PR.
 
-Teammate documentation has already reached main. PA2.md still has empty
-sections for the blocked PR, green fix and deliberate break. After integrating
-main through the human Git workflow, use the real links above to complete those
-sections and link the actual screenshots. The current submission-tag run is
-not supplied by this task and must remain pending until a real tag run exists.
+PA2.md now links the blocked PR, fixing run, deliberate break and screenshots.
+Submission-tag verification is a separate final action; consult
+[the finalization procedure](pa2-submission-finalization.md) and
+[PA2 section 5](../../PA2.md#5-ci-run-for-submission-tag). Do not relabel the
+already verified push/PR runs as tag runs.
 
 SELF_ASSESSMENT_REPORT.md should reflect the evidence actually present at the
 submission revision. Do not rewrite history, bypass required checks, silently
