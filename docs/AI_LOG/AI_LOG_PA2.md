@@ -216,3 +216,15 @@
 - **How we found the problem:** The red-test screenshot shows Consecutive_pages_do_not_overlap_and_retries_do_not_mutate_snapshot, expected [1,2] versus actual [6,5], with 23 failures/110 passes in the 133-case project. It does not show the separate numeric-sort case's [1,2,10] assertion, so its caption explicitly distinguishes the cases. The blocked screenshot shows commit 11d5ba7, failed Required test checks and a disabled merge button. Baseline and fix images show green checks on the same PR. Remote main was fetched to confirm merged implementation and teammate docs; no merge or working-tree overwrite was performed.
 - **Evidence:** docs/evidence/baseline-green.png, docs/evidence/contract-test-red.png, docs/evidence/required-check-blocked.png, docs/evidence/contract-fix-green.png and docs/evidence/pa2-contract-gate.md. These local files are not yet claimed as published. No commit or push performed.
 - **Led to rules-file line:** none.
+
+## 2026-11-26 — Complete submission evidence links after PRs 9 and 13 merged
+
+- **Tool / model:** Codex / GPT-6.
+- **Part of the work:** PA2 submission documentation.
+- **Task given:** On the human-created feature/pa2-evidence-index branch, fill PA2.md evidence sections and update historical PR state in self-assessment without changing claimed marks or inventing tag evidence.
+- **What the assistant produced:** Linked the real violation/fix commits, red/green runs, merge commit and existing screenshots from PA2.md; documented the actual pagination failure shown in the image. Updated SELF_ASSESSMENT_REPORT.md to state that PR #9 was blocked during the violation, then fixed, green and merged. Preserved every claimed criterion score and the total 94/100. Added explicit remaining limitations instead of leaving the limitations section empty. No application, contract, test, workflow or branch-rule changes.
+- **Changed:** TODO(human)
+- **Rejected:** TODO(human)
+- **How we found the problem:** Read the current submission docs and workflow on the branch created from origin/main after evidence PR #13 merged at da87713. PA2.md had blank blocked/green/break sections and self-assessment still described PR #9 as currently blocked. The workflow has no tag-push trigger, so submission-tag CI remains explicitly pending rather than being inferred from a branch run. Local Markdown targets are checked for existence; no quality tests are claimed rerun for this documentation-only change.
+- **Evidence:** PA2.md, SELF_ASSESSMENT_REPORT.md, docs/evidence/pa2-contract-gate.md; PRs https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/9 and https://github.com/ADWD-AI-Travel-Team/ADWD-AI_Travel_Planner/pull/13 ; actual red/green runs linked in PA2.md. No commit or push performed by the assistant.
+- **Led to rules-file line:** none.
