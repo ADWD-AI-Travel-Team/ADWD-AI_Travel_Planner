@@ -6,8 +6,10 @@ The AI coding assistant must follow these permission levels when working on this
 
 The agent may perform these actions without asking for approval:
 
-- Read project files, search code with grep, and inspect the repository.
-- Run `pnpm test`, `pnpm lint`, and `pnpm typecheck`.
+- Read project files, search code with rg, and inspect the repository.
+- Run the documented repository checks: `bash scripts/check-lint.sh`,
+  `bash scripts/check-format.sh`, `bash scripts/check-types.sh`, and
+  `bash scripts/check-tests.sh`.
 - Run `git diff` and `git status`.
 - Start and stop local development servers.
 - Edit application code and tests when implementing legitimate changes.
